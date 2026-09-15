@@ -1,0 +1,25 @@
+:root {
+    --bg-oscuro: #2b1810;
+    --bg-medio: #6e473b;
+    --bg-claro: #a88270;
+    --card-bg: #8d5e4c;
+    --turquesa: #00bfa5;
+    --turquesa-hover: #008e7a;
+    --texto-blanco: #ffffff;
+    --rojo-error: #d32f2f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Fondo con degradado radial para efecto de iluminación central */
+html, body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at center, var(--bg-claro) 0%, var(--bg-medio) 50%, var(--bg-oscuro) 100%);
+}
