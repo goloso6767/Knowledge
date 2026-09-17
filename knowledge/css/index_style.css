@@ -6,7 +6,7 @@ html, body {
     align-items: center;
 }
 
-.login-wrapper {
+.index-wrapper {
     position: relative;
     display: flex;
     align-items: center;
@@ -16,7 +16,7 @@ html, body {
     padding: 20px 0;
 }
 
-.login-card {
+.index-card {
     background: linear-gradient(180deg, #966754 0%, #704738 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 28px;
@@ -30,12 +30,12 @@ html, body {
 }
 
 /* Tarjeta más ancha (650px) */
-.login-card-wide {
+.index-card-wide {
     max-width: 650px;
     padding: 35px 40px;
 }
 
-.login-header {
+.index-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,14 +57,14 @@ html, body {
     margin-bottom: 8px;
 }
 
-.login-header h1 {
+.index-header h1 {
     font-size: 2.2rem;
     font-weight: 800;
     color: var(--texto-blanco);
     letter-spacing: -0.5px;
 }
 
-.login-header h1.titulo-sm {
+.index-header h1.titulo-sm {
     font-size: 1.8rem;
 }
 
@@ -184,7 +184,7 @@ html, body {
     transform: translateY(-2px);
 }
 
-.login-footer {
+.index-footer {
     margin-top: 20px;
 }
 

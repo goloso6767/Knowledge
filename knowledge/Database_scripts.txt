@@ -1,0 +1,123 @@
+-- Base de datos: knowledge_db
+
+CREATE DATABASE IF NOT EXISTS `knowledge_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `knowledge_db`;
+
+-- 1. Tabla: roles
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id_rol` INT AUTO_INCREMENT PRIMARY KEY,
+  `nombre_rol` VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Insertar roles por defecto
+INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
+(1, 'admin'),
+(2, 'docente'),
+(3, 'alumno'),
+(4, 'padre')
+ON DUPLICATE KEY UPDATE `nombre_rol` = VALUES(`nombre_rol`);
+
+-- 2. Tabla: usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id_usuario` INT AUTO_INCREMENT PRIMARY KEY,
+  `nombre_completo` VARCHAR(150) NOT NULL,
+  `correo` VARCHAR(150) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `id_rol` INT NOT NULL,
+  `fecha_creacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_rol`) REFERENCES `roles`(`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Tabla: clases
+CREATE TABLE IF NOT EXISTS `clases` (
+  `id_clase` INT AUTO_INCREMENT PRIMARY KEY,
+  `nombre_clase` VARCHAR(100) NOT NULL,
+  `descripcion` TEXT,
+  `codigo_clase` VARCHAR(20) NOT NULL UNIQUE,
+  `id_docente` INT NOT NULL,
+  `fecha_creacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_docente`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 4. Tabla: inscripciones
+CREATE TABLE IF NOT EXISTS `inscripciones` (
+  `id_inscripcion` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_alumno` INT NOT NULL,
+  `id_clase` INT NOT NULL,
+  `fecha_inscripcion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_alumno`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_clase`) REFERENCES `clases`(`id_clase`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 5. Tabla: relacion_padres_alumnos
+CREATE TABLE IF NOT EXISTS `relacion_padres_alumnos` (
+  `id_relacion` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_padre` INT NOT NULL,
+  `id_alumno` INT NOT NULL,
+  FOREIGN KEY (`id_padre`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_alumno`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 6. Tabla: tarea_actividad
+CREATE TABLE IF NOT EXISTS `tarea_actividad` (
+  `id_tarea` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_clase` INT NOT NULL,
+  `titulo` VARCHAR(150) NOT NULL,
+  `descripcion` TEXT,
+  `fecha_entrega` DATETIME,
+  `fecha_creacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_clase`) REFERENCES `clases`(`id_clase`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 7. Tabla: entrega
+CREATE TABLE IF NOT EXISTS `entrega` (
+  `id_entrega` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_tarea` INT NOT NULL,
+  `id_alumno` INT NOT NULL,
+  `archivo_path` VARCHAR(255),
+  `comentario` TEXT,
+  `fecha_entrega` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_tarea`) REFERENCES `tarea_actividad`(`id_tarea`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_alumno`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 8. Tabla: calificaciones
+CREATE TABLE IF NOT EXISTS `calificaciones` (
+  `id_calificacion` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_entrega` INT NOT NULL,
+  `calificacion` DECIMAL(5,2) NOT NULL,
+  `retroalimentacion` TEXT,
+  `fecha_evaluacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_entrega`) REFERENCES `entrega`(`id_entrega`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 9. Tabla: foro_publicaciones
+CREATE TABLE IF NOT EXISTS `foro_publicaciones` (
+  `id_publicacion` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_clase` INT NOT NULL,
+  `id_usuario` INT NOT NULL,
+  `contenido` TEXT NOT NULL,
+  `fecha_publicacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_clase`) REFERENCES `clases`(`id_clase`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_usuario`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 10. Tabla: foro_comentarios
+CREATE TABLE IF NOT EXISTS `foro_comentarios` (
+  `id_comentario` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_publicacion` INT NOT NULL,
+  `id_usuario` INT NOT NULL,
+  `comentario` TEXT NOT NULL,
+  `fecha_comentario` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_publicacion`) REFERENCES `foro_publicaciones`(`id_publicacion`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_usuario`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 11. Tabla: bitacora
+CREATE TABLE IF NOT EXISTS `bitacora` (
+  `id_bitacora` INT AUTO_INCREMENT PRIMARY KEY,
+  `id_usuario` INT NOT NULL,
+  `accion` VARCHAR(255) NOT NULL,
+  `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`id_usuario`) REFERENCES `usuarios`(`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
