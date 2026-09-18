@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1 class="titulo-sm">Crear Cuenta</h1>
             </header>
 
-            <form action="registro.php" method="POST" class="index-form">
+            <form id="form-registro" action="registro.php" method="POST" class="index-form">
                 
                 <div class="input-group">
                     <label>TIPO DE USUARIO</label>
@@ -139,17 +139,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="index.php" class="btn-registrar">¿YA TIENES CUENTA? INICIA SESIÓN</a>
             </footer>
 
-        </div>
-
-        <!-- Alerta flotante con la foto que cambia según el estado -->
-        <aside id="alerta-gato" class="alerta-gato-lateral <?php echo !empty($mensaje) ? ($esExito ? 'mostrar_alerta alerta-exito' : 'mostrar_alerta alerta-error') : 'oculto'; ?>">
-            <div class="gato-burbuja">
-                <img src="<?php echo $esExito ? 'img/gato_exito.jpg' : 'img/gato_x1.jpg'; ?>" alt="Gato Alerta" class="gato-alerta-grande">
-                <div class="mensaje-globo">
-                    <p><?php echo htmlspecialchars($mensaje); ?></p>
+            <!-- Alerta flotante pegada a la derecha -->
+            <aside id="alerta-gato" class="alerta-gato-lateral <?php echo !empty($mensaje) ? ($esExito ? 'mostrar_alerta alerta-exito' : 'mostrar_alerta alerta-error') : 'oculto'; ?>">
+                <div class="gato-burbuja">
+                    <img id="gato-img" src="<?php echo $esExito ? 'img/gato_x2.jpg' : 'img/gato_x1.jpg'; ?>" alt="Gato Alerta" class="gato-alerta-grande">
+                    <div class="mensaje-globo">
+                        <p id="gato-mensaje"><?php echo htmlspecialchars($mensaje); ?></p>
+                    </div>
                 </div>
-            </div>
-        </aside>
+            </aside>
+
+        </div>
 
     </main>
 

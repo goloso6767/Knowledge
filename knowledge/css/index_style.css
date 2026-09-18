@@ -17,6 +17,7 @@ html, body {
 }
 
 .index-card {
+    position: relative;
     background: linear-gradient(180deg, #966754 0%, #704738 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 28px;
@@ -29,7 +30,6 @@ html, body {
     animation: entradaSuave 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* Tarjeta más ancha (650px) */
 .index-card-wide {
     max-width: 650px;
     padding: 35px 40px;
@@ -91,7 +91,6 @@ html, body {
     letter-spacing: 1px;
 }
 
-/* Ajuste para contenedor del Input con Ojo */
 .password-box {
     position: relative;
     width: 100%;
@@ -99,7 +98,7 @@ html, body {
 
 .input-group input {
     width: 100%;
-    padding: 13px 42px 13px 16px; /* Espacio extra a la derecha para el ojo */
+    padding: 13px 42px 13px 16px;
     border: none;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.85);
@@ -114,7 +113,6 @@ html, body {
     box-shadow: 0 0 12px rgba(0, 191, 165, 0.5);
 }
 
-/* Ícono del Ojo interactivo */
 .toggle-eye {
     position: absolute;
     right: 12px;
@@ -131,39 +129,6 @@ html, body {
     opacity: 1;
 }
 
-/* Selector Moderno de Rol */
-.rol-selector {
-    display: flex;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    padding: 4px;
-    gap: 4px;
-}
-
-.rol-option {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.7);
-    transition: all 0.3s ease;
-    user-select: none;
-}
-
-.rol-option input {
-    display: none;
-}
-
-.rol-option.active {
-    background-color: var(--turquesa);
-    color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 191, 165, 0.3);
-}
-
-/* Botón */
 .btn-ingresar {
     width: 100%;
     padding: 14px;
@@ -200,11 +165,13 @@ html, body {
     color: var(--turquesa);
 }
 
-/* Alerta Flotante a la Derecha */
+/* Alerta Flotante del Gatito a la Derecha */
 .alerta-gato-lateral {
     position: absolute;
-    left: 670px;
-    width: 220px;
+    left: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     z-index: 10;
 }
@@ -217,25 +184,26 @@ html, body {
 }
 
 .gato-alerta-grande {
-    width: 140px;
-    height: 140px;
-    border-radius: 10px;
+    width: 170px;
+    height: 170px;
+    border-radius: 16px;
     object-fit: cover;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 .mensaje-globo {
     background-color: #ffffff;
-    border-radius: 12px;
-    padding: 12px;
-    margin-top: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     width: 100%;
 }
 
 .mensaje-globo p {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: bold;
+    margin: 0;
 }
 
 .alerta-error .gato-alerta-grande { border: 4px solid var(--rojo-error); }
@@ -249,13 +217,13 @@ html, body {
 .oculto {
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-30px) scale(0.7);
+    transform: translateY(-50%) translateX(-20px) scale(0.8);
 }
 
 .mostrar_alerta {
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(0) scale(1);
+    transform: translateY(-50%) translateX(0) scale(1);
 }
 
 @keyframes entradaSuave {

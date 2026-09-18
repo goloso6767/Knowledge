@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>Knowledge</h1>
             </header>
 
-          <form id="form-registro" action="registro.php" method="POST" class="index-form">
+            <form id="form-index" action="index.php" method="POST" class="index-form">
                 
                 <div class="input-group">
                     <label for="correo">CORREO</label>
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="input-group">
-                    <label for="password">PASSWORD</label>
+                    <label for="password">CONTRASEÑA</label>
                     <div class="password-box">
                         <input type="password" id="password" name="password" placeholder="••••••••" required>
                         <span class="toggle-eye" onclick="verPassword('password', this)">👁️</span>
@@ -87,17 +87,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="registro.php" class="btn-registrar">REGISTRAR CUENTA</a>
             </footer>
 
-        </div>
-
-        <!-- Alerta flotante animada del gatito -->
-        <aside id="alerta-gato" class="alerta-gato-lateral <?php echo !empty($mensajeError) ? 'mostrar_alerta alerta-error' : 'oculto'; ?>">
-            <div class="gato-burbuja">
-                <img id="gato-img" src="img/gato_x1.jpg" alt="Gato Alerta" class="gato-alerta-grande">
-                <div class="mensaje-globo">
-                    <p id="gato-mensaje"><?php echo htmlspecialchars($mensajeError); ?></p>
+            <!-- Alerta flotante animada del gatito (al lado del contenedor) -->
+            <aside id="alerta-gato" class="alerta-gato-lateral <?php echo !empty($mensajeError) ? 'mostrar_alerta alerta-error' : 'oculto'; ?>">
+                <div class="gato-burbuja">
+                    <img id="gato-img" src="img/gato_x1.jpg" alt="Gato Alerta" class="gato-alerta-grande">
+                    <div class="mensaje-globo">
+                        <p id="gato-mensaje"><?php echo htmlspecialchars($mensajeError); ?></p>
+                    </div>
                 </div>
-            </div>
-        </aside>
+            </aside>
+
+        </div>
 
     </main>
 

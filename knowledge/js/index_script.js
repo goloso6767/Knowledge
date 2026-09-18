@@ -10,10 +10,10 @@ function verPassword(inputId, eyeIcon) {
     }
 }
 
-// Control de eventos del formulario si prefieres validación dinámica
+// Control de eventos del formulario para validación
 document.addEventListener('DOMContentLoaded', () => {
     const formIndex = document.getElementById('form-index');
-    const aleirtaGato = document.getElementById('alerta-gato');
+    const alertaGato = document.getElementById('alerta-gato');
     const gatoMensaje = document.getElementById('gato-mensaje');
 
     if (formIndex) {
